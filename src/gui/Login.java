@@ -19,10 +19,10 @@ public class Login implements ActionListener
 	JLabel adminLabel = new JLabel("Log in as Administrator");
 	JButton submitButton = new JButton("SUBMIT");
 	JButton registerButton = new JButton("REGISTER");
-	JTextField nameField = new JTextField();
-	JTextField passField = new JTextField();
+	public JTextField nameField = new JTextField();
+	public JTextField passField = new JTextField();
 	JPanel loginPanel = new JPanel();
-	JCheckBox adminCheck = new JCheckBox();
+	public JCheckBox adminCheck = new JCheckBox();
 	Connection conn = null;
 	
 	public Login(Connection incon)
@@ -96,10 +96,10 @@ public class Login implements ActionListener
 						System.out.println("Log In: Successful");
 						if(usertype == "Admin")
 						{	loginFrame.dispose();
-							new Admin_View(); }
+							new Admin_View(conn); }
 						if(usertype == "User")
 						{	loginFrame.dispose();
-							new User_View();  }
+							new User_View(conn);  }
 					}
 					//if not then invalid
 					else

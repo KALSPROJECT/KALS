@@ -1,11 +1,9 @@
 package dao;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import model.*;
 
 public class Person_DAO {
@@ -49,7 +47,6 @@ public class Person_DAO {
 	    finally
 		{
 			if (conn != null)
-				System.out.println("Closing Person Connection...");
 				rs.close();
 				ps.close();
 		}

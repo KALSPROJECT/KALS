@@ -14,7 +14,16 @@ public class test {
 		String password = "password";
 		conn = DBconnect.getConnection(user_name, password);
 		
-		new Login(conn);
+		Login admin = new Login(conn);
+		admin.nameField.setText("Jroberts61");
+		admin.passField.setText("qOzdl28");
+		admin.adminCheck.setSelected(true);
+		
+		Login user = new Login(conn);
+		user.nameField.setText("srobinson0");
+		user.passField.setText("Jzj5lX");
+		
+		new Account(conn);
 	}
 
 }

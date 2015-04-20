@@ -2,9 +2,15 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
 
 import javax.swing.*;
 import javax.swing.border.*;
+
+import model.Books;
+import model.Videos;
+import dao.Book_DAO;
+import dao.Video_DAO;
 
 public class Admin_View implements ActionListener{
 	String space = "                                                                                                     ";
@@ -19,11 +25,11 @@ public class Admin_View implements ActionListener{
 			      + "|  AUTHOR          "
 				  + "|  QUANTITY  "
 			      + "|  SECTION  ");
-	JLabel ISBNLabel = new JLabel("4748-0987-9503");
-	JLabel titleLabel= new JLabel("President Bruce Lee: Nation of Water");
-	JLabel authorLabel= new JLabel("Nicholas Oliver");
-	JLabel quantityLabel = new JLabel("1");
-	JLabel sectionLabel = new JLabel("C-23");
+	JLabel ISBNLabel = new JLabel();
+	JLabel titleLabel= new JLabel();
+	JLabel authorLabel= new JLabel();
+	JLabel quantityLabel = new JLabel();
+	JLabel sectionLabel = new JLabel();
 	JMenuBar menuBar = new JMenuBar();
 	JMenu userMenu = new JMenu("KALS");
 	JMenu helpMenu = new JMenu("Help");
@@ -36,10 +42,13 @@ public class Admin_View implements ActionListener{
 	JButton searchButton = new JButton("Search");	
 	JButton deleteButton = new JButton();
 	JButton editButton = new JButton();
+	Connection conn = null;
 	Border black = BorderFactory.createLineBorder(Color.black, 1);
 	
-	public Admin_View()
+	public Admin_View(Connection incon)
 	{
+		conn = incon;
+		
 		//listeners
 		userItem.addActionListener(this);
 		exitItem.addActionListener(this);
@@ -107,6 +116,7 @@ public class Admin_View implements ActionListener{
 		listPanel.add(editButton);
 		
 		//labels
+		headLabel.setBorder(black);
 		headLabel.setBounds(50, 10, 700, 25);
 		ISBNLabel.setBounds(50, 40, 100, 25);
 		titleLabel.setBounds(180, 40, 320, 25);
@@ -117,26 +127,158 @@ public class Admin_View implements ActionListener{
 		//buttons
 		deleteButton.setBounds(760, 40, 25, 25);
 		deleteButton.setIcon(new ImageIcon("delete.png"));
+		deleteButton.setVisible(false);
 		editButton.setBounds(10, 40, 25, 25);
 		editButton.setIcon(new ImageIcon("edit.png"));
-		
-		headLabel.setBorder(black);
+		editButton.setVisible(false);
+	}
+	
+	public void clearFields()
+	{
+		titleLabel.setText("The Media You Requested Cannot Be Found");
+		ISBNLabel.setText("");
+		authorLabel.setText("");
+		quantityLabel.setText("");
+		sectionLabel.setText("");
+		deleteButton.setVisible(false);
+		editButton.setVisible(false);
 	}
 	
 	public void actionPerformed(ActionEvent e) 
 	{
 		 Object Click_Source = e.getSource();
 			if (Click_Source == searchButton) {
-				//do something
+				String item = (String)searchCombo.getSelectedItem();
+				if(item == "ISBN")
+				{
+					try
+					{
+						Book_DAO bDAO = new Book_DAO(conn);
+						if(bDAO.ISBNcheck(searchField.getText()))
+						{
+							try
+							{
+								Books b = new Books();
+								b = bDAO.getBookbyISBN(searchField.getText());
+								ISBNLabel.setText(b.getISBN());
+								titleLabel.setText(b.getTitle());
+								authorLabel.setText(b.getAuthor());
+								quantityLabel.setText(Integer.toString(b.getQuantity()));
+								sectionLabel.setText(b.getSection());
+								deleteButton.setVisible(true);
+								editButton.setVisible(true);
+							}
+							catch(Exception c)
+							{
+								System.out.println("Error" + c.getMessage());
+							}
+						}
+						else
+						{	
+							clearFields();
+						}
+					}
+					catch(Exception c)
+					{
+						System.out.println("Error" + c.getMessage());
+					}
+				}
+				if(item == "ISAN")
+				{
+					try
+					{
+						Video_DAO vDAO = new Video_DAO(conn);
+						if(vDAO.ISANcheck(searchField.getText()))
+						{
+							try
+							{
+								Videos v = new Videos();
+								v = vDAO.getVideobyISAN(searchField.getText());
+								ISBNLabel.setText(v.getISAN());
+								titleLabel.setText(v.getTitle());
+								authorLabel.setText(v.getProducer());
+								quantityLabel.setText(Integer.toString(v.getQuantity()));
+								sectionLabel.setText(v.getSection());
+								deleteButton.setVisible(true);
+								editButton.setVisible(true);
+							}
+							catch(Exception c)
+							{
+								System.out.println("Error" + c.getMessage());
+							}
+						}
+						else
+						{	
+							clearFields();
+						}
+					}
+					catch(Exception c)
+					{
+						System.out.println("Error" + c.getMessage());
+					}
+				}
+				if(item == "Title")
+				{
+					try
+					{
+						Book_DAO bDAO = new Book_DAO(conn);
+						Video_DAO vDAO = new Video_DAO(conn);
+						boolean booktitle = bDAO.titlecheck(searchField.getText());
+						boolean videotitle = vDAO.titlecheck(searchField.getText());
+						
+						if(booktitle)
+						{
+							try
+							{
+								Books b = new Books();
+								b = bDAO.getBookbyTitle(searchField.getText());
+								ISBNLabel.setText(b.getISBN());
+								titleLabel.setText(b.getTitle());
+								authorLabel.setText(b.getAuthor());
+								quantityLabel.setText(Integer.toString(b.getQuantity()));
+								sectionLabel.setText(b.getSection());
+								deleteButton.setVisible(true);
+								editButton.setVisible(true);
+							}
+							catch(Exception c)
+							{
+								System.out.println("Error" + c.getMessage());
+							}
+						}
+						else if(videotitle)
+						{
+							try
+							{
+								Videos v = new Videos();
+								v = vDAO.getVideobyTitle(searchField.getText());
+								ISBNLabel.setText(v.getISAN());
+								titleLabel.setText(v.getTitle());
+								authorLabel.setText(v.getProducer());
+								quantityLabel.setText(Integer.toString(v.getQuantity()));
+								sectionLabel.setText(v.getSection());
+								deleteButton.setVisible(true);
+								editButton.setVisible(true);
+							}
+							catch(Exception c)
+							{
+								System.out.println("Error" + c.getMessage());
+							}
+						}
+						else
+						{	
+							clearFields();
+						}
+					}
+					catch(Exception c)
+					{
+						System.out.println("Error" + c.getMessage());
+					}
+				}
 			}
-			if (Click_Source == searchButton) {
-				//do something
-			}
-		 	if (Click_Source == searchCombo)
-		 	{	
-		 		JComboBox<?> box = (JComboBox<?>)e.getSource();
-		 		String item = (String)box.getSelectedItem();
-		 		//do something
+		 	if (Click_Source == exitItem)
+		 	{
+		 		baseFrame.dispose();
+		 		new Login(conn);
 		 	}
 	}
 }
