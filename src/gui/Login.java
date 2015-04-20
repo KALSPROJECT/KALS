@@ -13,7 +13,7 @@ import model.*;
 public class Login implements ActionListener
 {
 	JFrame loginFrame = new JFrame("WELCOME TO KALS");
-	JLabel titleLabel = new JLabel("COWS");
+	JLabel titleLabel = new JLabel("KALS");
 	JLabel nameLabel = new JLabel("USERNAME");
 	JLabel passLabel = new JLabel("PASSWORD");
 	JLabel adminLabel = new JLabel("Log in as Administrator");

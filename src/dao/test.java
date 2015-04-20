@@ -18,12 +18,6 @@ public class test {
 		admin.nameField.setText("Jroberts61");
 		admin.passField.setText("qOzdl28");
 		admin.adminCheck.setSelected(true);
-		
-		Login user = new Login(conn);
-		user.nameField.setText("srobinson0");
-		user.passField.setText("Jzj5lX");
-		
-		new Account(conn);
 	}
 
 }
