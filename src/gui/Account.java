@@ -25,7 +25,7 @@ public class Account implements ActionListener{
 	JPanel basePanel = new JPanel();
 	JPanel listPanel = new JPanel();
 	JLabel headingLabel = new JLabel("Account Summary");
-	JLabel checkLabel = new JLabel("Items Current Checked Out: ");
+	JLabel checkLabel = new JLabel("Items Currently Checked Out: ");
 	JLabel headLabel = new JLabel("  ISBN/ISAN            | TITLE " + space
 								+"| DUE DATE      ");
 	JLabel ISBNLabel = new JLabel("ISBN/ISAN");
@@ -74,10 +74,10 @@ public class Account implements ActionListener{
 		//labels
 		headingLabel.setBounds(368, 50, 265, 50);
 		headingLabel.setFont(new Font("Arial", Font.BOLD, 30));
-		headingLabel.setBorder(black);
+//		headingLabel.setBorder(black);
 		
 		checkLabel.setBounds(50, 120, 200, 25);
-		checkLabel.setBorder(black);
+//		checkLabel.setBorder(black);
 //--------------------------------------------------------------------//	
 		//LIST PANEL SETTINGS
 		listPanel.setLayout(null);
@@ -92,11 +92,11 @@ public class Account implements ActionListener{
 		headLabel.setBounds(0, 0, 500, 25);
 		headLabel.setBorder(black);
 		ISBNLabel.setBounds(5, 25, 95, 25);
-		ISBNLabel.setBorder(black);
+//		ISBNLabel.setBorder(black);
 		titleLabel.setBounds(100, 25, 320, 25);
-		titleLabel.setBorder(black);
+//		titleLabel.setBorder(black);
 		dueLabel.setBounds(420, 25, 80, 25);
-		dueLabel.setBorder(black);
+//		dueLabel.setBorder(black);
 
 	}
 	

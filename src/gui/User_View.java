@@ -16,7 +16,7 @@ public class User_View implements ActionListener {
 	JPanel basePanel = new JPanel();
 	JPanel listPanel = new JPanel();
 	JLabel kalsLabel = new JLabel("Welcome to KALS, ");
-	JLabel userLabel = new JLabel("username"); 
+	JLabel userLabel = new JLabel("your life sucks"); 
 	JLabel headLabel = new JLabel(
 				     "  ISBN/ISAN                      "
 				  + "|  TITLE" + space

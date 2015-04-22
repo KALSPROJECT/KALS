@@ -18,7 +18,7 @@ public class Admin_View implements ActionListener{
 	JPanel basePanel = new JPanel();
 	JPanel listPanel = new JPanel();
 	JLabel kalsLabel = new JLabel("Welcome to KALS, ");
-	JLabel userLabel = new JLabel("username"); 
+	JLabel userLabel = new JLabel("now get lost"); 
 	JLabel headLabel = new JLabel(
 				     "  ISBN/ISAN                      "
 				  + "|  TITLE"+ space
